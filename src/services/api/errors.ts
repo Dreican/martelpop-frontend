@@ -1,0 +1,9 @@
+export class ApiError extends Error {
+    constructor(
+        public readonly status: number,
+        public readonly detail: unknown,
+    ) {
+        super(`API Request failed with status ${status}`)
+        this.name = 'ApiError'
+    }
+}
