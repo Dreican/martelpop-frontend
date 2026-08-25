@@ -27,6 +27,7 @@ export function register(
 export function refresh(): Promise<TokenResponse> {
     return apiFetch<TokenResponse>("/auth/refresh", {
         method: "POST",
+        skipRefresh: true,
     });
 }
 
