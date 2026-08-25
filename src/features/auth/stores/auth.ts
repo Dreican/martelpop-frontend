@@ -14,17 +14,16 @@ import type {
     RegisterRequest
 } from "@/features/auth/types/auth.ts"
 
-import { setAccessToken } from "@/services/auth/token.ts"
+import {
+    getAccessToken,
+    setAccessToken
+} from "@/services/auth/token.ts"
 
 
 export const useAuthStore = defineStore("auth", () => {
-    const accessToken = ref<string | null>(null)
-    const refreshToken = ref<string | null>(null)
-
-    const initialized = ref(false)
     const loading = ref(false)
 
-    const isAuthenticated = computed(() => accessToken.value !== null)
+    const isAuthenticated = computed(() => getAccessToken() !== null)
 
     async function login(
         request: LoginRequest
@@ -33,7 +32,6 @@ export const useAuthStore = defineStore("auth", () => {
 
         try {
             const response = await loginRequest(request)
-            refreshToken.value = response.refresh_token
             setAccessToken(response.access_token)
         } finally {
             loading.value = false;
@@ -47,7 +45,6 @@ export const useAuthStore = defineStore("auth", () => {
 
         try {
             const response = await registerRequest(request)
-            refreshToken.value = response.refresh_token
             setAccessToken(response.access_token)
         } finally {
             loading.value = false
@@ -55,14 +52,8 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     async function refresh(): Promise<boolean> {
-        if (!refreshToken.value) {
-            return false
-        }
-
         try {
-            const response = await refreshRequest({refresh_token: refreshToken.value})
-            refreshToken.value = response.refresh_token
-            accessToken.value = response.access_token
+            const response = await refreshRequest()
             setAccessToken(response.access_token)
             return true;
         } catch {
@@ -72,12 +63,8 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     async function logout(): Promise<void> {
-        if (!refreshToken.value) {
-            clearAuthentication()
-            return
-        }
         try {
-            await logoutRequest({refresh_token: refreshToken.value})
+            await logoutRequest()
         } finally {
             clearAuthentication()
         }
@@ -92,16 +79,10 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     function clearAuthentication(): void {
-        accessToken.value = null
-        refreshToken.value = null
         setAccessToken(null)
     }
 
-
     return {
-        accessToken,
-        refreshToken,
-        initialized,
         loading,
         isAuthenticated,
 
@@ -112,5 +93,4 @@ export const useAuthStore = defineStore("auth", () => {
         logoutAll,
         clearAuthentication
     }
-
 })

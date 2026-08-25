@@ -3,9 +3,7 @@ import { apiFetch } from "@/services/api/client.ts";
 import type {
     LoginRequest,
     RegisterRequest,
-    RefreshRequest,
     TokenResponse,
-    LogoutRequest
 } from "@/features/auth/types/auth.ts";
 
 export function login(
@@ -26,21 +24,15 @@ export function register(
     });
 }
 
-export function refresh(
-    request: RefreshRequest
-): Promise<TokenResponse> {
+export function refresh(): Promise<TokenResponse> {
     return apiFetch<TokenResponse>("/auth/refresh", {
         method: "POST",
-        body: JSON.stringify(request),
     });
 }
 
-export function logout(
-    request: LogoutRequest
-): Promise<void> {
+export function logout(): Promise<void> {
     return apiFetch("/auth/logout", {
         method: "POST",
-        body: JSON.stringify(request),
     });
 }
 
