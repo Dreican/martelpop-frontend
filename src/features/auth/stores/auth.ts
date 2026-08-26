@@ -22,8 +22,24 @@ import {
 
 export const useAuthStore = defineStore("auth", () => {
     const loading = ref(false)
+    const initialized = ref(false)
 
     const isAuthenticated = computed(() => getAccessToken() !== null)
+
+    async function initialize(): Promise<void> {
+        if  (!initialized.value) {
+            return
+        }
+
+        try {
+            const response = await refreshRequest()
+            setAccessToken(response.access_token)
+        } catch {
+            setAccessToken(null)
+        } finally {
+            initialized.value = true
+        }
+    }
 
     async function login(
         request: LoginRequest
@@ -86,6 +102,7 @@ export const useAuthStore = defineStore("auth", () => {
         loading,
         isAuthenticated,
 
+        initialize,
         login,
         register,
         refresh,

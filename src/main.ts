@@ -8,16 +8,26 @@ import App from './App.vue'
 import router from './router'
 
 import './styles.css'
+import {useAuthStore} from "@/features/auth/stores/auth.ts";
+import { registerLicense } from '@primeui/license-manager'
+
+registerLicense({
+    primeui: import.meta.env.VITE_PRIMEUI_LICENSE
+});
 
 const app = createApp(App)
+const pinia = createPinia()
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 
 app.use(PrimeVue, {
     theme: {
         preset: Aura
-    }
+    },
 })
+
+const auth = useAuthStore(pinia)
+await auth.initialize()
 
 app.mount('#app')
