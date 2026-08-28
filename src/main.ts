@@ -1,5 +1,5 @@
-import './assets/main.css'
-
+// import './assets/main.css'
+import './styles.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
@@ -7,7 +7,6 @@ import Aura from '@primeuix/themes/aura'
 import App from './App.vue'
 import router from './router'
 
-import './styles.css'
 import {useAuthStore} from "@/features/auth/stores/auth.ts";
 import { registerLicense } from '@primeui/license-manager'
 
