@@ -1,10 +1,10 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+<script lang="ts" setup>
+import {ref} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
 
 
-import { useAuthStore } from '@/features/auth/stores/auth'
-import { ApiError } from "@/services/api/errors.ts";
+import {useAuthStore} from '@/features/auth/stores/auth'
+import {ApiError} from "@/services/api/errors.ts";
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -42,9 +42,9 @@ async function submit() {
 
       <div v-if="error" class="error">{{ error }}</div>
 
-      <input v-model="email" type="email" placeholder="Email" required>
-      <input v-model="password" type="password" placeholder="Password" required>
-      <button type="submit" :disabled="auth.loading">{{ auth.loading ? 'Signing in...' : 'Sign In' }}</button>
+      <input v-model="email" placeholder="Email" required type="email">
+      <input v-model="password" placeholder="Password" required type="password">
+      <button :disabled="auth.loading" type="submit">{{ auth.loading ? 'Signing in...' : 'Sign In' }}</button>
 
     </form>
   </div>

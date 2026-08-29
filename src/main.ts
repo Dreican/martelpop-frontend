@@ -1,5 +1,5 @@
-// import './assets/main.css'
-import './styles.css'
+import './assets/main.css'
+//import './assets/login.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
@@ -22,7 +22,10 @@ app.use(router)
 
 app.use(PrimeVue, {
     theme: {
-        preset: Aura
+        preset: Aura,
+        options: {
+            darkModeSelector: false,
+        },
     },
 })
 

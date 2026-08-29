@@ -1,20 +1,18 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+<script lang="ts" setup>
+import {ref} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
 
-import InputText from 'primevue/inputtext'
-import InputPassword from 'primevue/inputpassword'
-import Button from 'primevue/button'
-import Message from 'primevue/message'
-import Label from 'primevue/label'
-import Envelope from '@primeicons/vue/envelope';
-import { Form, FormField, type FormSubmitEvent } from '@primevue/forms'
-import { zodResolver } from '@primevue/forms/resolvers/zod'
-import { z } from 'zod'
+import {Form, type FormSubmitEvent} from '@primevue/forms'
+import {zodResolver} from '@primevue/forms/resolvers/zod'
+import {z} from 'zod'
 
+import Button from "primevue/button";
 
-import { useAuthStore } from '@/features/auth/stores/auth'
-import { ApiError } from "@/services/api/errors.ts";
+import FormInput from '@/components/forms/FormInput.vue'
+import FormPassword from '@/components/forms/FormPassword.vue'
+
+import {useAuthStore} from '@/features/auth/stores/auth'
+import {ApiError} from "@/services/api/errors.ts";
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -24,8 +22,22 @@ const error = ref<string | null>(null)
 
 const resolver = zodResolver(
     z.object({
-        email: z.email('Please enter a valid email'),
-        password: z.string().min(12, 'Password must be at least 12 characters'),
+      email: z.preprocess(
+          value => value ?? '',
+          z
+              .string()
+              .trim()
+              .min(1, 'Email is required')
+              .pipe(z.email('Please enter a valid email'))
+      ),
+
+      password: z.preprocess(
+          value => value ?? '',
+          z
+              .string()
+              .min(1, 'Password is required')
+              .min(10, 'Password must be at least 10 characters')
+      ),
     })
 )
 
@@ -55,40 +67,54 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
 
 </script>
 
+
 <template>
+  <div></div>
   <div class="login-page">
     <div class="login-card">
       <div class="login-header">
-        <h1>Login</h1>
+        <h1>Welcome back</h1>
+        <p>Sign in to your MartelPop account</p>
       </div>
-      <Message v-if="error" severity="error">{{ error }}</Message>
+      <Form
+          :resolver="resolver"
+          class="login-form"
+          @submit="onSubmit"
+      >
+        <FormInput
+            autocomplete="email"
+            label="Email"
+            name="email"
+            type="email"
+        />
 
-      <Form :resolver="resolver" @submit="onSubmit" class="login-form">
-        <FormField v-slot="$field" name="email" class="login-field">
-          <Label for="email">
-            <Envelope />
-            <span>Email</span>
-          </Label>
-          <InputText id="email" type="email" autocomplete="email" fluid />
-          <Message v-if="$field.invalid" severity="error" size="small" variant="simple">
-            {{ $field.error?.message }}
-          </Message>
-        </FormField>
-        <FormField v-slot="$field" name="password" class="login-field">
-          <Label for="password">Password</Label>
-          <InputPassword id="password" v-model="$field.value" autocomplete="current-password" :feedback="false" toggle-mask fluid />
+        <FormPassword
+            autocomplete="current-password"
+            label="Password"
+            name="password"
+        />
 
-          <Message v-if="$field.invalid" severity="error" size="small" variant="simple">
-            {{ $field.error?.message }}
-          </Message>
-          <Button type="submit" label="Sign In" :loading="auth.loading"/>
-        </FormField>
+        <Message
+            v-if="error"
+            severity="error"
+        >
+          {{ error }}
+        </Message>
 
+        <Button
+            fluid
+            label="Sign in"
+            type="submit"
+        />
       </Form>
-      <div class="login-footer">
-        <RouterLink :to="{ name: 'register' }">
-          Create an account
-        </RouterLink>
+
+      <div class="register-footer">
+        <span>Not yet register ?</span>
+        <span>
+          <RouterLink :to="{ name: 'register' }">
+            Sign on
+          </RouterLink>
+        </span>
       </div>
     </div>
   </div>
