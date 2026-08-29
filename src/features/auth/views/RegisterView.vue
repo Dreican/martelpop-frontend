@@ -8,6 +8,7 @@ import {Form, type FormSubmitEvent} from '@primevue/forms'
 import {zodResolver} from '@primevue/forms/resolvers/zod'
 import {z} from 'zod'
 
+import Card from 'primevue/card'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
 import FormInput from '@/components/forms/FormInput.vue'
@@ -125,69 +126,72 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
 
 <template>
   <div></div>
-  <div class="register-page">
-    <div class="register-card">
-      <div class="register-header">
-        <h1>Create your account</h1>
-        <p>Join MartelPop</p>
-      </div>
-      <Message v-if="error" severity="error">{{ error }}</Message>
+  <main class="register-page">
+    <Card>
+      <template #content>
 
-      <Form :resolver="resolver" @submit="onSubmit">
-        <FormInput
-            autocomplete="email"
-            label="Email"
-            name="email"
-            type="email"
-        />
-
-        <div class="name-fields">
-          <FormInput
-              autocomplete="given-name"
-              label="First name"
-              name="firstname"
-          />
-
-          <FormInput
-              autocomplete="family-name"
-              label="Last name"
-              name="lastname"
-          />
+        <div class="register-header">
+          <h1>Create your account</h1>
+          <p>Join MartelPop</p>
         </div>
-        <FormInput
-            autocomplete="nickname"
-            label="Display name"
-            name="display_name"
-        />
+        <Message v-if="error" severity="error">{{ error }}</Message>
 
-        <FormPassword
-            :feedback="true"
-            autocomplete="new-password"
-            label="Password"
-            name="password"
-        />
+        <Form :resolver="resolver" @submit="onSubmit">
+          <FormInput
+              autocomplete="email"
+              label="Email"
+              name="email"
+              type="email"
+          />
 
-        <FormPassword
-            autocomplete="new-password"
-            label="Confirm password"
-            name="password_confirmation"
-        />
+          <div class="name-fields">
+            <FormInput
+                autocomplete="given-name"
+                label="First name"
+                name="firstname"
+            />
 
-        <Button
-            fluid
-            label="Create account"
-            type="submit"
-        />
-      </Form>
+            <FormInput
+                autocomplete="family-name"
+                label="Last name"
+                name="lastname"
+            />
+          </div>
+          <FormInput
+              autocomplete="nickname"
+              label="Display name"
+              name="display_name"
+          />
 
-      <div class="register-footer">
-        <span>Already have an account ?</span>
-        <span>
-          <RouterLink :to="{ name: 'login' }">
-            Sign in
-          </RouterLink>
-        </span>
-      </div>
-    </div>
-  </div>
+          <FormPassword
+              :feedback="true"
+              autocomplete="new-password"
+              label="Password"
+              name="password"
+          />
+
+          <FormPassword
+              autocomplete="new-password"
+              label="Confirm password"
+              name="password_confirmation"
+          />
+
+          <Button
+              fluid
+              label="Create account"
+              type="submit"
+          />
+        </Form>
+
+        <div class="register-footer">
+          <span>Already have an account ?</span>
+          <span>
+                <RouterLink :to="{ name: 'login' }">
+                  Sign in
+                </RouterLink>
+              </span>
+        </div>
+      </template>
+    </Card>
+  </main>
 </template>
