@@ -20,20 +20,6 @@ const route = useRoute()
 
 const error = ref<string | null>(null)
 
-const rules = [
-  {id: 'length', label: 'At least 12 characters long', test: (v: string) => v.length >= 12, weight: 20},
-  {id: 'uppercase', label: 'Contains uppercase letter', test: (v: string) => /[A-Z]/.test(v), weight: 20},
-  {id: 'lowercase', label: 'Contains lowercase letter', test: (v: string) => /[a-z]/.test(v), weight: 20},
-  {id: 'number', label: 'Contains number', test: (v: string) => /[0-9]/.test(v), weight: 20},
-  {
-    id: 'special',
-    label: 'Contains special character (!@#$...)',
-    test: (v: string) => /[^a-zA-Z0-9]/.test(v),
-    weight: 20
-  }
-];
-
-
 const resolver = zodResolver(
     z.object({
       email: z.preprocess(
@@ -127,12 +113,13 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
 <template>
   <div></div>
   <main class="register-page">
+
     <Card>
       <template #content>
 
         <div class="register-header">
           <h1>Create your account</h1>
-          <p>Join MartelPop</p>
+<!--          <p>Join MartelPop</p>-->
         </div>
         <Message v-if="error" severity="error">{{ error }}</Message>
 
@@ -176,6 +163,15 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
               name="password_confirmation"
           />
 
+          <Message
+              v-if="error"
+              severity="error"
+              size="large"
+              variant="simple"
+          >
+            {{ error }}
+          </Message>
+          <br />
           <Button
               fluid
               label="Create account"

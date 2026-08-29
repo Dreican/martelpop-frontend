@@ -13,6 +13,7 @@ import FormPassword from '@/components/forms/FormPassword.vue'
 
 import {useAuthStore} from '@/features/auth/stores/auth'
 import {ApiError} from "@/services/api/errors.ts";
+import Message from "primevue/message";
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -74,7 +75,7 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
     <div class="login-card">
       <div class="login-header">
         <h1>Welcome back</h1>
-        <p>Sign in to your MartelPop account</p>
+        <p>Sign in to your account</p>
       </div>
       <Form
           :resolver="resolver"
@@ -97,6 +98,8 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
         <Message
             v-if="error"
             severity="error"
+            size="large"
+            variant="simple"
         >
           {{ error }}
         </Message>
