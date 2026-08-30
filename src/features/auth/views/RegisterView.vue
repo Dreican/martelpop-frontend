@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
 import {useAuthStore} from '@/features/auth/stores/auth'
@@ -13,22 +13,24 @@ import Button from 'primevue/button'
 import Message from 'primevue/message'
 import FormInput from '@/components/forms/FormInput.vue'
 import FormPassword from '@/components/forms/FormPassword.vue'
+import {useI18n} from "vue-i18n";
 
 const auth = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 
+const {t} = useI18n()
 const error = ref<string | null>(null)
 
-const resolver = zodResolver(
+const schema = computed(() =>
     z.object({
       email: z.preprocess(
           value => value ?? '',
           z
               .string()
               .trim()
-              .min(1, 'Email is required')
-              .pipe(z.email('Please enter a valid email'))
+              .min(1, t('auth.errors.emailRequiredError'))
+              .pipe(z.email(t('auth.errors.emailInvalidError')))
       ),
 
       firstname: z.preprocess(
@@ -36,8 +38,8 @@ const resolver = zodResolver(
           z
               .string()
               .trim()
-              .min(1, 'First name is required')
-              .max(100, 'First name must be at most 100 characters')
+              .min(1, t('auth.errors.firstNameRequiredError'))
+              .max(100, t('auth.errors.firstNameMaxLengthError'))
       ),
 
       lastname: z.preprocess(
@@ -45,8 +47,8 @@ const resolver = zodResolver(
           z
               .string()
               .trim()
-              .min(1, 'Last name is required')
-              .max(100, 'Last name must be at most 100 characters')
+              .min(1, t('auth.errors.lastNameRequiredError'))
+              .max(100, t('auth.errors.lastNameMaxLengthError'))
       ),
 
       display_name: z.preprocess(
@@ -54,31 +56,33 @@ const resolver = zodResolver(
           z
               .string()
               .trim()
-              .min(1, 'Display name is required')
-              .max(100, 'Display name must be at most 100 characters')
+              .min(1, t('auth.errors.displayNameRequiredError'))
+              .max(100, t('auth.errors.displayNameMaxLengthError'))
       ),
 
       password: z.preprocess(
           value => value ?? '',
           z
               .string()
-              .min(1, 'Password is required')
-              .min(12, 'Password must be at least 12 characters')
-              .max(255, 'Password must be at most 255 characters')
+              .min(1, t('auth.errors.passwordRequiredError'))
+              .min(12, t('auth.errors.passwordMinLengthError'))
+              .max(255, t('auth.errors.passwordMaxLengthError'))
       ),
 
       password_confirmation: z.preprocess(
           value => value ?? '',
-          z.string().min(1, 'Please confirm your password')
+          z.string().min(1, t('auth.errors.confirmPasswordRequiredError'))
       ),
     }).refine(
         data => data.password === data.password_confirmation,
         {
           path: ['password_confirmation'],
-          message: 'Passwords do not match',
+          message: t('auth.errors.passwordNotMatchError'),
         }
     )
 )
+
+const resolver = computed(() => zodResolver(schema.value))
 
 async function onSubmit(event: FormSubmitEvent): Promise<void> {
   error.value = null
@@ -101,9 +105,9 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
     await router.push(redirect)
   } catch (err) {
     if (err instanceof ApiError && err.status === 409) {
-      error.value = 'An account with this email already exists.'
+      error.value = t('auth.errors.emailAlreadyExistsError')
     } else {
-      error.value = 'Unable to create your account. Please try again.'
+      error.value = t('auth.errors.registrationError')
     }
   }
 }
@@ -118,7 +122,7 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
       <template #content>
 
         <div class="register-header">
-          <h1>Create your account</h1>
+          <h1>{{ t('auth.registration.header') }}</h1>
 <!--          <p>Join MartelPop</p>-->
         </div>
         <Message v-if="error" severity="error">{{ error }}</Message>
@@ -126,7 +130,7 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
         <Form :resolver="resolver" class="register-form" @submit="onSubmit">
           <FormInput
               autocomplete="email"
-              label="Email"
+              :label="t('auth.email')"
               name="email"
               type="email"
           />
@@ -134,32 +138,32 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
           <div class="name-fields">
             <FormInput
                 autocomplete="given-name"
-                label="First name"
+                :label="t('auth.firstname')"
                 name="firstname"
             />
 
             <FormInput
                 autocomplete="family-name"
-                label="Last name"
+                :label="t('auth.lastname')"
                 name="lastname"
             />
           </div>
           <FormInput
               autocomplete="nickname"
-              label="Display name"
+              :label="t('auth.displayName')"
               name="display_name"
           />
 
           <FormPassword
               :feedback="true"
               autocomplete="new-password"
-              label="Password"
+              :label="t('auth.password')"
               name="password"
           />
 
           <FormPassword
               autocomplete="new-password"
-              label="Confirm password"
+              :label="t('auth.confirmPassword')"
               name="password_confirmation"
           />
 
@@ -174,16 +178,16 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
           <br />
           <Button
               fluid
-              label="Create account"
+              :label="t('auth.registration.registerButton')"
               type="submit"
           />
         </Form>
 
         <div class="register-footer">
-          <span>Already have an account ?</span>
+          <span>{{ t('auth.registration.alreadyHaveAccount') }}</span>
           <span>
                 <RouterLink :to="{ name: 'login' }">
-                  Sign in
+                  {{ t('auth.registration.signIn') }}
                 </RouterLink>
               </span>
         </div>

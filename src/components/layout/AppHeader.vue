@@ -1,18 +1,34 @@
 <script setup lang="ts">
 import {Menubar} from "primevue";
+import { useI18n } from 'vue-i18n'
+import Select from 'primevue/select'
+import {setLocale} from "@/i18n";
+import {computed} from "vue";
 
-const items = [
-  {
-    label: "Event",
-    route: "/events"
-  }
+const { locale, t } = useI18n()
+
+const languages = [
+  { label: 'Français', value: 'fr' },
+  { label: 'English', value: 'en' },
 ]
 
+const menuItems = computed(() => [
+  {
+    label: t('navigation.events'),
+    route: '/events',
+  },
+  {
+    label: t('navigation.registrations'),
+    route: '/registration',
+  },
+])
+
+const selectedLanguage = locale
 </script>
 
 <template>
   <header class="app-header">
-    <Menubar :model="items">
+    <Menubar :model="menuItems">
       <template #start>
         <RouterLink
             to="/"
@@ -38,13 +54,21 @@ const items = [
           </a>
         </RouterLink>
       </template>
+      <template #end>
+        <Select
+            v-model="selectedLanguage"
+            :options="languages"
+            option-label="label"
+            option-value="value"
+            @update:model-value="setLocale"
+        />
+      </template>
     </Menubar>
   </header>
 </template>
 
 <style scoped>
 .app-header {
-  grid-column: 1 / -1;
   width: 100%;
 }
 

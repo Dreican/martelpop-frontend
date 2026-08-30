@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
+import {computed, ref, watch} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
 import {Form, type FormSubmitEvent} from '@primevue/forms'
@@ -21,29 +21,32 @@ const auth = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 
-const {t} = useI18n()
+const { t, locale } = useI18n()
 const error = ref<string | null>(null)
+const form = ref()
 
-const resolver = zodResolver(
+const schema = computed(() =>
     z.object({
       email: z.preprocess(
           value => value ?? '',
           z
               .string()
               .trim()
-              .min(1, 'Email is required')
-              .pipe(z.email('Please enter a valid email'))
+              .min(1, t('auth.errors.emailRequiredError'))
+              .pipe(z.email(t('auth.errors.emailInvalidError')))
       ),
 
       password: z.preprocess(
           value => value ?? '',
           z
               .string()
-              .min(1, 'Password is required')
-              .min(10, 'Password must be at least 10 characters')
+              .min(1,  t('auth.errors.passwordRequiredError'))
+              .min(12, t('auth.errors.passwordMinLengthError'))
       ),
     })
 )
+
+const resolver = computed(() => zodResolver(schema.value))
 
 async function onSubmit(event: FormSubmitEvent): Promise<void> {
   error.value = null
@@ -62,12 +65,16 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
     await router.push(redirect)
   } catch (err) {
     if (err instanceof ApiError && err.status === 401) {
-      error.value = 'Invalid email or password'
+      error.value = t('auth.erros.invalidEmailOrPasswordError')
     } else {
-      error.value = 'Unable to sign in. Please try again.'
+      error.value = t('auth.erros.loginError')
     }
   }
 }
+
+watch(locale, async () => {
+  await form.value?.validate()
+})
 
 </script>
 
@@ -77,10 +84,11 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
     <Card class="login-card">
       <template #content>
         <div class="login-header">
-          <h1>{{ t('auth.welcome') }}</h1>
-          <p>{{ t('auth.sign_in') }}</p>
+          <h1>{{ t('auth.login.welcome') }}</h1>
+          <p>{{ t('auth.login.sign_in') }}</p>
         </div>
         <Form
+            ref="form"
             :resolver="resolver"
             class="login-form"
             @submit="onSubmit"
@@ -109,16 +117,16 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
 
           <Button
               fluid
-              :label="t('auth.loginButton')"
+              :label="t('auth.login.loginButton')"
               type="submit"
           />
         </Form>
 
         <div class="login-footer">
-          <span>Not yet register ?</span>
+          <span>{{ t('auth.login.notYetRegister') }}</span>
           <span>
             <RouterLink :to="{ name: 'register' }">
-              Sign on
+              {{ t('auth.login.signUp') }}
             </RouterLink>
           </span>
         </div>
