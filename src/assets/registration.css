@@ -9,11 +9,7 @@
 .register-card {
     width: 100%;
     max-width: 480px;
-    padding: 2.5rem;
     border: 1px solid var(--p-surface-200);
-    border-radius: 1rem;
-    background: var(--p-surface-0);
-    box-shadow: var(--p-overlay-modal-shadow);
 }
 
 .register-header {
@@ -29,7 +25,6 @@
 
 .register-header p {
     margin: 0;
-    color: var(--p-text-muted-color);
     line-height: 1.5;
 }
 
@@ -40,7 +35,7 @@
 .register-form {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 0.5rem;
 }
 
 .name-fields {

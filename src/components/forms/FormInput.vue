@@ -21,19 +21,19 @@ withDefaults(defineProps<Props>(), {
       v-slot="$field"
       :name="name"
   >
-      <div class="field">
-        <FloatLabel variant="on">
-          <label :for="id ?? name">
-            {{ label }}
-          </label>
-          <InputText
-              :id="id ?? name"
-              :autocomplete="autocomplete"
-              :invalid="$field.invalid"
-              :name="name"
-              :type="type"
-              fluid
-          />
+<!--    <div class="field">-->
+      <FloatLabel variant="on">
+        <label :for="id ?? name">
+          {{ label }}
+        </label>
+        <InputText
+            :id="id ?? name"
+            :autocomplete="autocomplete"
+            :invalid="$field.invalid"
+            :name="name"
+            :type="type"
+            fluid
+        />
 
       </FloatLabel>
       <Message
@@ -44,7 +44,7 @@ withDefaults(defineProps<Props>(), {
       >
         {{ $field.error?.message }}
       </Message>
-    </div>
+<!--    </div>-->
   </FormField>
 </template>
 <style scoped>

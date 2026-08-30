@@ -60,6 +60,9 @@ export const MartelPopPreset  = definePreset(Aura, {
                 borderRadius: '1rem',
                 shadow: 'var(--p-overlay-modal-shadow)'
             },
+            body: {
+               padding: '2.5rem',
+            },
             subtitle: {
                 color: 'light-dark({surface.500}, {surface.400})'
             }

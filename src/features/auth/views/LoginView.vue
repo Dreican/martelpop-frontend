@@ -14,6 +14,7 @@ import FormPassword from '@/components/forms/FormPassword.vue'
 import {useAuthStore} from '@/features/auth/stores/auth'
 import {ApiError} from "@/services/api/errors.ts";
 import Message from "primevue/message";
+import Card from "primevue/card";
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -70,55 +71,56 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
 
 
 <template>
-  <div></div>
   <div class="login-page">
-    <div class="login-card">
-      <div class="login-header">
-        <h1>Welcome back</h1>
-        <p>Sign in to your account</p>
-      </div>
-      <Form
-          :resolver="resolver"
-          class="login-form"
-          @submit="onSubmit"
-      >
-        <FormInput
-            autocomplete="email"
-            label="Email"
-            name="email"
-            type="email"
-        />
-
-        <FormPassword
-            autocomplete="current-password"
-            label="Password"
-            name="password"
-        />
-
-        <Message
-            v-if="error"
-            severity="error"
-            size="large"
-            variant="simple"
+    <Card class="login-card">
+      <template #content>
+        <div class="login-header">
+          <h1>Welcome back</h1>
+          <p>Sign in to your account</p>
+        </div>
+        <Form
+            :resolver="resolver"
+            class="login-form"
+            @submit="onSubmit"
         >
-          {{ error }}
-        </Message>
+          <FormInput
+              autocomplete="email"
+              label="Email"
+              name="email"
+              type="email"
+          />
 
-        <Button
-            fluid
-            label="Sign in"
-            type="submit"
-        />
-      </Form>
+          <FormPassword
+              autocomplete="current-password"
+              label="Password"
+              name="password"
+          />
 
-      <div class="register-footer">
-        <span>Not yet register ?</span>
-        <span>
-          <RouterLink :to="{ name: 'register' }">
-            Sign on
-          </RouterLink>
-        </span>
-      </div>
-    </div>
+          <Message
+              v-if="error"
+              severity="error"
+              size="large"
+              variant="simple"
+          >
+            {{ error }}
+          </Message>
+
+          <Button
+              fluid
+              label="Sign in"
+              type="submit"
+          />
+        </Form>
+
+        <div class="register-footer">
+          <span>Not yet register ?</span>
+          <span>
+            <RouterLink :to="{ name: 'register' }">
+              Sign on
+            </RouterLink>
+          </span>
+        </div>
+      </template>
+    </Card>
   </div>
 </template>

@@ -114,7 +114,7 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
   <div></div>
   <main class="register-page">
 
-    <Card>
+    <Card class="register-card">
       <template #content>
 
         <div class="register-header">
@@ -123,7 +123,7 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
         </div>
         <Message v-if="error" severity="error">{{ error }}</Message>
 
-        <Form :resolver="resolver" @submit="onSubmit">
+        <Form :resolver="resolver" class="register-form" @submit="onSubmit">
           <FormInput
               autocomplete="email"
               label="Email"

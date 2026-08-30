@@ -1,38 +1,50 @@
 import { createRouter, createWebHistory } from "vue-router"
 import { useAuthStore } from '@/features/auth/stores/auth'
+import AppLayout from "@/components/layout/AppLayout.vue";
+import LoginView from "@/features/auth/views/LoginView.vue";
+import RegisterView from "@/features/auth/views/RegisterView.vue";
+import ProfileView from "@/features/auth/views/ProfileView.vue";
+import HomeView from "@/features/home/views/HomeView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/',
-            name: 'home',
-            component: () => import('@/features/home/views/Home.vue')
+            component: AppLayout,
+            children: [
+                {
+                    path: '',
+                    name: 'home',
+                    component: HomeView,
+                },
+                {
+                    path: '/login',
+                    name: 'login',
+                    component: LoginView,
+                    meta: {
+                        guestOnly: true
+                    }
+                },
+                {
+                    path: '/register',
+                    name: 'register',
+                    component: RegisterView,
+                    meta: {
+                        guestOnly: true
+                    }
+                },
+                {
+                    path: '/profile',
+                    name: 'profile',
+                    component: ProfileView,
+                    meta: {
+                        authRequired: true
+                    }
+                }
+            ]
         },
-        {
-            path: '/login',
-            name: 'login',
-            component: () => import('@/features/auth/views/LoginView.vue'),
-            meta: {
-                guestOnly: true
-            }
-        },
-        {
-            path: '/register',
-            name: 'register',
-            component: () => import('@/features/auth/views/RegisterView.vue'),
-            meta: {
-                guestOnly: true
-            }
-        },
-        {
-            path: '/profile',
-            name: 'profile',
-            component: () => import('@/features/auth/views/ProfileView.vue'),
-            meta: {
-                authRequired: true
-            }
-        }
+
     ]
 })
 

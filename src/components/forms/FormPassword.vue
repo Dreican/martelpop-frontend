@@ -1,7 +1,7 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import InputPassword from 'primevue/inputpassword'
 import Message from 'primevue/message'
-import { FormField } from '@primevue/forms'
+import {FormField} from '@primevue/forms'
 
 interface Props {
   name: string
@@ -21,21 +21,22 @@ withDefaults(defineProps<Props>(), {
       v-slot="$field"
       :name="name"
   >
-    <div class="field">
-      <label :for="id ?? name">
-        {{ label }}
-      </label>
+<!--    <div class="field">-->
+      <FloatLabel variant="on">
+        <label :for="id ?? name">
+          {{ label }}
+        </label>
 
-      <InputPassword
-          :id="id ?? name"
-          :name="name"
-          :autocomplete="autocomplete"
-          :feedback="feedback"
-          :invalid="$field.invalid"
-          toggle-mask
-          fluid
-      />
-
+        <InputPassword
+            :id="id ?? name"
+            :autocomplete="autocomplete"
+            :feedback="feedback"
+            :invalid="$field.invalid"
+            :name="name"
+            fluid
+            toggle-mask
+        />
+      </FloatLabel>
       <Message
           v-if="$field.invalid"
           severity="error"
@@ -44,7 +45,7 @@ withDefaults(defineProps<Props>(), {
       >
         {{ $field.error?.message }}
       </Message>
-    </div>
+<!--    </div>-->
   </FormField>
 </template>
 <style scoped>

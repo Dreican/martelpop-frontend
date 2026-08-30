@@ -2,37 +2,71 @@
 @import 'registration.css';
 @import 'login.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+a {
+  color: var(--p-primary-color);
+  text-decoration: none;
+  transition:
+          color 0.2s,
+          background-color 0.2s;
+  padding: 3px;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+a:focus-visible {
+  outline: var(--p-focus-ring-width) var(--p-focus-ring-style)
+  var(--p-focus-ring-color);
+  outline-offset: var(--p-focus-ring-offset);
 }
 
 @media (hover: hover) {
   a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+    color: var(--p-primary-hover-color);
+    background-color: color-mix(
+            in srgb,
+            var(--p-primary-color) 15%,
+            transparent
+    );
   }
 }
 
 @media (min-width: 1024px) {
+  #app {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-weight: normal;
+  }
+
   body {
     display: flex;
     place-items: center;
   }
 
-  #app {
+  .app {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 0 2rem;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr) minmax(0, 1fr);
+  }
+
+  .app-header {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .app-header .p-menubar {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .app-content {
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  .app-footer {
+    grid-column: 1 / -1;
+    width: 100%;
   }
 }
 
