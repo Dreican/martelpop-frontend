@@ -19,7 +19,7 @@ const menuItems = computed(() => [
   },
   {
     label: t('navigation.registrations'),
-    route: '/registration',
+    route: '/registrations',
   },
 ])
 

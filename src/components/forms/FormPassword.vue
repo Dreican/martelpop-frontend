@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import InputPassword from 'primevue/inputpassword'
 import Message from 'primevue/message'
-import {FormField} from '@primevue/forms'
+import FormField from '@primevue/forms'
+import FloatLabel from "primevue/floatlabel";
 
 interface Props {
   name: string

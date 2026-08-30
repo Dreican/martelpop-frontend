@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import InputText from 'primevue/inputtext'
 import Message from 'primevue/message'
-import {FormField} from '@primevue/forms'
+import FormField from '@primevue/forms'
+import FloatLabel from "primevue/floatlabel";
 
 interface Props {
   name: string
