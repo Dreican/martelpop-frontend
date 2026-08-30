@@ -1,6 +1,4 @@
 @import './base.css';
-@import 'registration.css';
-@import 'login.css';
 
 a {
   color: var(--p-primary-color);
@@ -42,31 +40,5 @@ a:focus-visible {
     place-items: center;
   }
 
-  .app {
-    display: grid;
-    width: 100%;
-    min-width: 0;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr) minmax(0, 1fr);
-  }
-
-  .app-header {
-    grid-column: 1 / -1;
-    width: 100%;
-  }
-
-  .app-header .p-menubar {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .app-content {
-    grid-column: 2;
-    min-width: 0;
-  }
-
-  .app-footer {
-    grid-column: 1 / -1;
-    width: 100%;
-  }
 }
 

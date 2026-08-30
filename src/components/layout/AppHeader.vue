@@ -43,5 +43,13 @@ const items = [
 </template>
 
 <style scoped>
+.app-header {
+  grid-column: 1 / -1;
+  width: 100%;
+}
 
+.app-header .p-menubar {
+  width: 100%;
+  box-sizing: border-box;
+}
 </style>

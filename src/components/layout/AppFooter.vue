@@ -9,5 +9,7 @@
 </template>
 
 <style scoped>
-
+.app-footer {
+  width: 100%;
+}
 </style>

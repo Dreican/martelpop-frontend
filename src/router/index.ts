@@ -5,6 +5,7 @@ import LoginView from "@/features/auth/views/LoginView.vue";
 import RegisterView from "@/features/auth/views/RegisterView.vue";
 import ProfileView from "@/features/auth/views/ProfileView.vue";
 import HomeView from "@/features/home/views/HomeView.vue";
+import AdminLayout from "@/components/layout/AdminLayout.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,22 @@ const router = createRouter({
                 }
             ]
         },
+        {
+            path: '/admin',
+            component: AdminLayout,
+            children: [
+                // {
+                //     path: '',
+                //     name: 'admin-dashboard',
+                //     component: '',
+                // },
+                // {
+                //     path: 'events',
+                //     name: 'admin-events',
+                //     component: '',
+                // },
+            ]
+        }
 
     ]
 })

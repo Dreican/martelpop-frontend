@@ -5,6 +5,7 @@ import {useRoute, useRouter} from 'vue-router'
 import {Form, type FormSubmitEvent} from '@primevue/forms'
 import {zodResolver} from '@primevue/forms/resolvers/zod'
 import {z} from 'zod'
+import {useI18n} from 'vue-i18n'
 
 import Button from "primevue/button";
 
@@ -20,6 +21,7 @@ const auth = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 
+const {t} = useI18n()
 const error = ref<string | null>(null)
 
 const resolver = zodResolver(
@@ -75,8 +77,8 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
     <Card class="login-card">
       <template #content>
         <div class="login-header">
-          <h1>Welcome back</h1>
-          <p>Sign in to your account</p>
+          <h1>{{ t('auth.welcome') }}</h1>
+          <p>{{ t('auth.sign_in') }}</p>
         </div>
         <Form
             :resolver="resolver"
@@ -85,14 +87,14 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
         >
           <FormInput
               autocomplete="email"
-              label="Email"
+              :label="t('auth.email')"
               name="email"
               type="email"
           />
 
           <FormPassword
               autocomplete="current-password"
-              label="Password"
+              :label="t('auth.password')"
               name="password"
           />
 
@@ -107,12 +109,12 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
 
           <Button
               fluid
-              label="Sign in"
+              :label="t('auth.loginButton')"
               type="submit"
           />
         </Form>
 
-        <div class="register-footer">
+        <div class="login-footer">
           <span>Not yet register ?</span>
           <span>
             <RouterLink :to="{ name: 'register' }">
@@ -124,3 +126,62 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
     </Card>
   </div>
 </template>
+
+<style scoped>
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid var(--p-surface-200);
+}
+
+.login-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.login-header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.login-header p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.login-error {
+  margin-bottom: 1.5rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.0rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field label {
+  font-weight: 500;
+}
+
+.login-footer {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 2rem;
+}
+</style>
