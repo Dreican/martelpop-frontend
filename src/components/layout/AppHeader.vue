@@ -64,13 +64,32 @@ const selectedLanguage = locale
         </RouterLink>
       </template>
       <template #end>
-        <Select
-            v-model="selectedLanguage"
-            :options="languages"
-            option-label="label"
-            option-value="value"
-            @update:model-value="setLocale"
-        />
+        <div class="menu-end">
+          <template v-if="!auth.isAuthenticated">
+            <RouterLink :to="{ name: 'login' }">
+              {{ t('navigation.login') }}
+            </RouterLink>
+
+            <RouterLink :to="{ name: 'register' }">
+              {{ t('navigation.register') }}
+            </RouterLink>
+          </template>
+
+          <RouterLink
+              v-else
+              :to="{ name: 'profile' }"
+          >
+            Profile
+          </RouterLink>
+
+          <Select
+              v-model="selectedLanguage"
+              :options="languages"
+              option-label="label"
+              option-value="value"
+              @update:model-value="setLocale"
+          />
+        </div>
       </template>
     </Menubar>
   </header>
@@ -84,5 +103,11 @@ const selectedLanguage = locale
 .app-header .p-menubar {
   width: 100%;
   box-sizing: border-box;
+}
+
+.menu-end {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 </style>

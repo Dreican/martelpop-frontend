@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {computed, ref, watch} from 'vue'
+import {computed, ref} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
 import {Form, type FormSubmitEvent} from '@primevue/forms'
@@ -21,9 +21,8 @@ const auth = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const error = ref<string | null>(null)
-const form = ref()
 
 const schema = computed(() =>
     z.object({
@@ -72,10 +71,6 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
   }
 }
 
-watch(locale, async () => {
-  await form.value?.validate()
-})
-
 </script>
 
 
@@ -88,7 +83,6 @@ watch(locale, async () => {
           <p>{{ t('auth.login.sign_in') }}</p>
         </div>
         <Form
-            ref="form"
             :resolver="resolver"
             class="login-form"
             @submit="onSubmit"
