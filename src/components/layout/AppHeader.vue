@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import {Menubar} from "primevue";
-import { useI18n } from 'vue-i18n'
+import {useI18n} from 'vue-i18n'
 import Select from 'primevue/select'
 import {setLocale} from "@/i18n";
 import {computed} from "vue";
+import {useAuthStore} from "@/features/auth/stores/auth";
 
+const auth = useAuthStore()
 const { locale, t } = useI18n()
 
 const languages = [
@@ -12,16 +14,23 @@ const languages = [
   { label: 'English', value: 'en' },
 ]
 
-const menuItems = computed(() => [
-  {
-    label: t('navigation.events'),
-    route: '/events',
-  },
-  {
-    label: t('navigation.registrations'),
-    route: '/registrations',
-  },
-])
+const menuItems = computed(() => {
+  const items = [
+      {
+        label: t('navigation.events'),
+        route: '/events',
+      },
+  ]
+
+  if (auth.isAuthenticated) {
+    items.push({
+      label: t('navigation.registrations'),
+      route: '/registrations',
+    })
+  }
+
+  return items
+})
 
 const selectedLanguage = locale
 </script>

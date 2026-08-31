@@ -30,14 +30,16 @@ a:focus-visible {
   #app {
     width: 100%;
     max-width: 1280px;
+    min-height: 100dvh;
     margin: 0 auto;
     padding: 2rem;
     font-weight: normal;
+    display: flex;
+    flex-direction: column;
   }
 
   body {
-    display: flex;
-    place-items: center;
+    min-height: 100vh;
   }
 
 }

@@ -1,5 +1,5 @@
-import { refresh } from '@/features/auth/api/authApi'
-import { setAccessToken } from '@/services/auth/token'
+import {refresh} from '@/features/auth/api/authApi'
+import {setAccessToken} from '@/services/auth/token'
 
 let refreshPromise: Promise<boolean> | null = null
 

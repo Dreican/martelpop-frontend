@@ -1,10 +1,6 @@
-import { apiFetch } from "@/services/api/client.ts";
+import {apiFetch} from "@/services/api/client.ts";
 
-import type {
-    LoginRequest,
-    RegisterRequest,
-    TokenResponse,
-} from "@/features/auth/types/auth.ts";
+import type {LoginRequest, RegisterRequest, TokenResponse,} from "@/features/auth/types/auth.ts";
 
 export function login(
     request: LoginRequest

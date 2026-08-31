@@ -1,5 +1,3 @@
-import PrimeVue from "primevue/config";
-import {useAuthStore} from "@/features/auth/stores/auth.ts";
 import Aura from "@primeuix/themes/aura";
 import {definePreset} from "@primeuix/themes";
 

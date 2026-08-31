@@ -1,23 +1,17 @@
-import { computed, ref } from "vue";
-import { defineStore } from 'pinia'
+import {computed, ref} from "vue";
+import {defineStore} from 'pinia'
 
 import {
     login as loginRequest,
     logout as logoutRequest,
-    refresh as refreshRequest,
     logoutAll as logoutAllRequest,
+    refresh as refreshRequest,
     register as registerRequest
 } from "@/features/auth/api/authApi.ts"
 
-import type {
-    LoginRequest,
-    RegisterRequest
-} from "@/features/auth/types/auth.ts"
+import type {LoginRequest, RegisterRequest} from "@/features/auth/types/auth.ts"
 
-import {
-    getAccessToken,
-    setAccessToken
-} from "@/services/auth/token.ts"
+import {getAccessToken, setAccessToken} from "@/services/auth/token.ts"
 
 
 export const useAuthStore = defineStore("auth", () => {
