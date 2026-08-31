@@ -17,11 +17,11 @@ import {getAccessToken, setAccessToken} from "@/services/auth/token.ts"
 export const useAuthStore = defineStore("auth", () => {
     const loading = ref(false)
     const initialized = ref(false)
-
-    const isAuthenticated = computed(() => getAccessToken() !== null)
+    const accessToken = ref<string | null>(null)
+    const isAuthenticated = computed(() => accessToken.value !== null)
 
     async function initialize(): Promise<void> {
-        if  (!initialized.value) {
+        if  (initialized.value) {
             return
         }
 
@@ -32,6 +32,7 @@ export const useAuthStore = defineStore("auth", () => {
             setAccessToken(null)
         } finally {
             initialized.value = true
+            console.log("Auth store initialized")
         }
     }
 
@@ -43,6 +44,7 @@ export const useAuthStore = defineStore("auth", () => {
         try {
             const response = await loginRequest(request)
             setAccessToken(response.access_token)
+            console.log("Login successful")
         } finally {
             loading.value = false;
         }
