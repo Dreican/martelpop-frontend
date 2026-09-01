@@ -4,6 +4,6 @@ export default {
     registrations: 'Mes inscriptions',
     profile: 'Profil',
     login: 'Connexion',
-    register: 'S\'inscrire',
+    register: 'S\'enregistrer',
     logout: 'Déconnexion',
 }

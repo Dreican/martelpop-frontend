@@ -16,6 +16,8 @@ import {useAuthStore} from '@/features/auth/stores/auth'
 import {ApiError} from "@/services/api/errors.ts";
 import Message from "primevue/message";
 import Card from "primevue/card";
+import At from '@primeicons/vue/at';
+import Key from '@primeicons/vue/key';
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -92,13 +94,23 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
               :label="t('auth.email')"
               name="email"
               type="email"
-          />
+              size="large"
+          >
+            <template #icon>
+              <At />
+            </template>
+          </FormInput>
 
           <FormPassword
               autocomplete="current-password"
               :label="t('auth.password')"
               name="password"
-          />
+              size="large"
+          >
+            <template #icon>
+              <Key />
+            </template>
+          </FormPassword>
 
           <Message
               v-if="error"

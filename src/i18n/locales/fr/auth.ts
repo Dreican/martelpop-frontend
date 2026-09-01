@@ -10,16 +10,15 @@ export default {
         welcome: 'Bienvenue',
         sign_in: 'Connexion à votre compte',
         notYetRegister: 'Pas encore de compte ?',
-        signUp: 'S\'inscrire',
+        signUp: 'S\'enregistrer',
         loginButton: 'Se connecter',
     },
     registration: {
-        loginButton: 'Se connecter',
         registerButton: 'Créer un compte',
 
         header: 'Créer votre compte',
-        alreadyHaveAccount: 'Déjà un compte ?',
-        signIn: 'Se connecter',
+        alreadyHaveAccount: 'Déjà inscrit(e) ?',
+        signIn: 'Connexion',
     },
     errors: {
         emailRequiredError: 'L\'adresse email est requise.',

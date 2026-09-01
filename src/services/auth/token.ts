@@ -1,6 +1,4 @@
-import {ref} from "vue";
-
-let accessToken: ref<string | null> = ref(null)
+let accessToken: string | null = null
 
 export function setAccessToken(token: string | null): void {
     accessToken = token

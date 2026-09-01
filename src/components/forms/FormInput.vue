@@ -3,6 +3,8 @@ import InputText from 'primevue/inputtext'
 import Message from 'primevue/message'
 import {FormField} from '@primevue/forms'
 import FloatLabel from "primevue/floatlabel";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
 
 interface Props {
   name: string
@@ -10,10 +12,12 @@ interface Props {
   id?: string
   type?: string
   autocomplete?: string
+  size?: string
 }
 
 withDefaults(defineProps<Props>(), {
   type: 'text',
+  size: 'normal'
 })
 </script>
 
@@ -22,19 +26,40 @@ withDefaults(defineProps<Props>(), {
       v-slot="$field"
       :name="name"
   >
-<!--    <div class="field">-->
       <FloatLabel variant="on">
-        <label :for="id ?? name">
-          {{ label }}
-        </label>
+        <IconField v-if="$slots.icon" icon-position="left">
+          <InputIcon>
+            <slot name="icon" />
+          </InputIcon>
+
+          <label :for="id ?? name">
+            {{ label }}
+          </label>
+          <InputText
+              :id="id ?? name"
+              :autocomplete="autocomplete"
+              :invalid="$field.invalid"
+              :name="name"
+              :type="type"
+              :size="size"
+              fluid
+          />
+          </IconField>
+
         <InputText
+            v-else
             :id="id ?? name"
             :autocomplete="autocomplete"
             :invalid="$field.invalid"
             :name="name"
             :type="type"
+            :size="size"
             fluid
         />
+
+        <label :for="id ?? name">
+          {{ label }}
+        </label>
 
       </FloatLabel>
       <Message
@@ -45,7 +70,6 @@ withDefaults(defineProps<Props>(), {
       >
         {{ $field.error?.message }}
       </Message>
-<!--    </div>-->
   </FormField>
 </template>
 <style scoped>

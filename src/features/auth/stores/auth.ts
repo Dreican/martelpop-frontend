@@ -20,6 +20,11 @@ export const useAuthStore = defineStore("auth", () => {
     const accessToken = ref<string | null>(null)
     const isAuthenticated = computed(() => accessToken.value !== null)
 
+    function updateAccessToken(token: string | null): void {
+        accessToken.value = token
+        setAccessToken(token)
+    }
+
     async function initialize(): Promise<void> {
         if  (initialized.value) {
             return
@@ -43,8 +48,7 @@ export const useAuthStore = defineStore("auth", () => {
 
         try {
             const response = await loginRequest(request)
-            setAccessToken(response.access_token)
-            console.log("Login successful")
+            updateAccessToken(response.access_token)
         } finally {
             loading.value = false;
         }
@@ -57,7 +61,7 @@ export const useAuthStore = defineStore("auth", () => {
 
         try {
             const response = await registerRequest(request)
-            setAccessToken(response.access_token)
+            updateAccessToken(response.access_token)
         } finally {
             loading.value = false
         }
@@ -66,7 +70,7 @@ export const useAuthStore = defineStore("auth", () => {
     async function refresh(): Promise<boolean> {
         try {
             const response = await refreshRequest()
-            setAccessToken(response.access_token)
+            updateAccessToken(response.access_token)
             return true;
         } catch {
             clearAuthentication()
@@ -91,7 +95,7 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     function clearAuthentication(): void {
-        setAccessToken(null)
+        updateAccessToken(null)
     }
 
     return {
