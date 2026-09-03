@@ -9,6 +9,8 @@ export interface RegisterRequest {
     firstName: string
     lastName: string
     display_name: string
+    municipality: string
+    date_of_birth: Date
 }
 
 export interface TokenResponse {

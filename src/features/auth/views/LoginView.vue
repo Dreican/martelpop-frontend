@@ -18,6 +18,7 @@ import Message from "primevue/message";
 import Card from "primevue/card";
 import At from '@primeicons/vue/at';
 import Key from '@primeicons/vue/key';
+import SignIn from '@primeicons/vue/sign-in';
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -125,7 +126,12 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
               :label="t('auth.login.loginButton')"
               fluid
               type="submit"
-          />
+              size="large"
+
+          >
+            <SignIn/>
+            {{t('auth.login.loginButton')}}
+          </Button>
         </Form>
 
         <div class="login-footer">

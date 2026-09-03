@@ -11,8 +11,10 @@ import {z} from 'zod'
 import Card from 'primevue/card'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
+import { FormField } from '@primevue/forms'
 import FormInput from '@/components/forms/FormInput.vue'
 import FormPassword from '@/components/forms/FormPassword.vue'
+import DatePicker from 'primevue/datepicker'
 import {useI18n} from "vue-i18n";
 
 const auth = useAuthStore()
@@ -49,6 +51,25 @@ const schema = computed(() =>
               .trim()
               .min(1, t('auth.errors.lastNameRequiredError'))
               .max(100, t('auth.errors.lastNameMaxLengthError'))
+      ),
+
+      municipality: z.preprocess(
+          value => value ?? '',
+          z
+              .string()
+              .trim()
+              .min(1, t('auth.errors.municipalityRequiredError'))
+              .max(100, t('auth.errors.municipalityMaxLengthError'))
+      ),
+
+      date_of_birth: z.preprocess(
+          value => value ?? '',
+          z
+              .date()
+              .max(
+                  new Date(),
+                  t('auth.errors.birthDateFuture')
+              ),
       ),
 
       display_name: z.preprocess(
@@ -95,7 +116,9 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
       password: event.values.password as string,
       firstName: event.values.firstname as string,
       lastName: event.values.lastname as string,
-      display_name: event.values.display_name as string
+      display_name: event.values.display_name as string,
+      municipality: event.values.municipality as string,
+      date_of_birth: event.values.date_of_birth as Date
     })
 
     const redirect =
@@ -111,6 +134,12 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
     }
   }
 }
+
+const maximumBirthDate = new Date()
+
+maximumBirthDate.setFullYear(
+    maximumBirthDate.getFullYear() - 16
+)
 
 </script>
 
@@ -148,6 +177,40 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
                 name="lastname"
             />
           </div>
+
+          <FormInput
+              :label="t('auth.municipality')"
+              autocomplete="municipality"
+              name="municipality"
+          />
+
+          <FormField v-slot="$field" name="birthDate">
+            <FloatLabel variant="on">
+              <label for="date_of_birth">
+                {{ t('auth.date_of_birth') }}
+              </label>
+              <DatePicker
+                  id="date_of_birth"
+                  inputId="date_of_birth"
+                  v-model="$field.value"
+                  :invalid="$field.invalid"
+                  :max-date="maximumBirthDate"
+                  date-format="dd/mm/yy"
+                  fluid
+                  show-icon
+              />
+            </FloatLabel>
+
+            <Message
+                v-if="$field.invalid"
+                severity="error"
+                size="small"
+                variant="simple"
+            >
+              {{ $field.error?.message }}
+            </Message>
+          </FormField>
+
           <FormInput
               :label="t('auth.displayName')"
               autocomplete="nickname"

@@ -5,6 +5,8 @@ export default {
     lastname: 'Last name',
     displayName: 'Display name',
     confirmPassword: 'Confirm password',
+    municipality: 'Municipality',
+    date_of_birth: 'Date of birth',
 
     login: {
         welcome: 'Welcome back',
@@ -39,6 +41,7 @@ export default {
         lastNameMaxLengthError: 'Last name must be at most 100 characters',
         displayNameRequiredError: 'Display name is required',
         displayNameMaxLengthError: 'Display name must be at most 100 characters',
+        birthDateFutureError: 'Date of birth must be in the past',
 
         emailAlreadyExistsError: 'An account with this email already exists.',
         registrationError: 'Unable to create account. Please try again.',

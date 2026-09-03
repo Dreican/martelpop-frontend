@@ -5,13 +5,15 @@ export default {
     firstname: 'Prénom',
     lastname: 'Nom',
     displayName: "Nom d'affichage",
+    municipality: 'Commune',
+    date_of_birth: 'Date de naissance',
 
     login: {
         welcome: 'Bienvenue',
         sign_in: 'Connexion à votre compte',
         notYetRegister: 'Pas encore de compte ?',
         signUp: 'S\'enregistrer',
-        loginButton: 'Se connecter',
+        loginButton: 'Connexion',
     },
     registration: {
         registerButton: 'Créer un compte',
@@ -38,6 +40,8 @@ export default {
         lastNameMaxLengthError: 'Le nom doit être au plus 100 caractères',
         displayNameRequiredError: 'Le nom d\'affichage est requis',
         displayNameMaxLengthError: 'Le nom d\'affichage doit être au plus 100 caractères',
+        birthDateFutureError: 'La date de naissance doit être dans le passé',
+
 
         emailAlreadyExistsError: 'Un compte avec cette adresse email existe déjà.',
         registrationError: 'Impossible de créer un compte. Veuillez réessayer.',
