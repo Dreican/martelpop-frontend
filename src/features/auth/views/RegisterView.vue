@@ -14,6 +14,7 @@ import Message from 'primevue/message'
 import { FormField } from '@primevue/forms'
 import FormInput from '@/components/forms/FormInput.vue'
 import FormPassword from '@/components/forms/FormPassword.vue'
+import FloatLabel from "primevue/floatlabel";
 import DatePicker from 'primevue/datepicker'
 import {useI18n} from "vue-i18n";
 
@@ -63,12 +64,14 @@ const schema = computed(() =>
       ),
 
       date_of_birth: z.preprocess(
-          value => value ?? '',
+          value => value === null || value === undefined ? undefined : value,
           z
-              .date()
+              .date({
+                error: t('auth.errors.birthDateRequired')
+              })
               .max(
                   new Date(),
-                  t('auth.errors.birthDateFuture')
+                  t('auth.errors.birthDateFutureError')
               ),
       ),
 
@@ -184,7 +187,7 @@ maximumBirthDate.setFullYear(
               name="municipality"
           />
 
-          <FormField v-slot="$field" name="birthDate">
+          <FormField v-slot="$field" name="date_of_birth">
             <FloatLabel variant="on">
               <label for="date_of_birth">
                 {{ t('auth.date_of_birth') }}

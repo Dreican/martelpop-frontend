@@ -41,7 +41,10 @@ export default {
         lastNameMaxLengthError: 'Last name must be at most 100 characters',
         displayNameRequiredError: 'Display name is required',
         displayNameMaxLengthError: 'Display name must be at most 100 characters',
+        birthDateRequired: 'Date of birth is required',
         birthDateFutureError: 'Date of birth must be in the past',
+        municipalityRequiredError: 'The name of the municipality is required',
+        municipalityMaxLengthError: 'The name of the municipality must be at most 100 characters',
 
         emailAlreadyExistsError: 'An account with this email already exists.',
         registrationError: 'Unable to create account. Please try again.',

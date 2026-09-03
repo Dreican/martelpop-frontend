@@ -40,8 +40,10 @@ export default {
         lastNameMaxLengthError: 'Le nom doit être au plus 100 caractères',
         displayNameRequiredError: 'Le nom d\'affichage est requis',
         displayNameMaxLengthError: 'Le nom d\'affichage doit être au plus 100 caractères',
+        birthDateRequired: 'La date de naissance est requise',
         birthDateFutureError: 'La date de naissance doit être dans le passé',
-
+        municipalityRequiredError: 'Le nom de la commune est requis',
+        municipalityMaxLengthError: 'Le nom de la commune doit être au plus 100 caractères',
 
         emailAlreadyExistsError: 'Un compte avec cette adresse email existe déjà.',
         registrationError: 'Impossible de créer un compte. Veuillez réessayer.',
