@@ -1,46 +1,44 @@
 @import './base.css';
 
 a {
-  color: var(--p-primary-color);
-  text-decoration: none;
-  transition:
-          color 0.2s,
-          background-color 0.2s;
-  padding: 3px;
+    color: var(--p-primary-color);
+    text-decoration: none;
+    transition: color 0.2s,
+    background-color 0.2s;
+    padding: 3px;
 }
 
 a:focus-visible {
-  outline: var(--p-focus-ring-width) var(--p-focus-ring-style)
-  var(--p-focus-ring-color);
-  outline-offset: var(--p-focus-ring-offset);
+    outline: var(--p-focus-ring-width) var(--p-focus-ring-style) var(--p-focus-ring-color);
+    outline-offset: var(--p-focus-ring-offset);
 }
 
 @media (hover: hover) {
-  a:hover {
-    color: var(--p-primary-hover-color);
-    background-color: color-mix(
-            in srgb,
-            var(--p-primary-color) 15%,
-            transparent
-    );
-  }
+    a:hover {
+        color: var(--p-primary-hover-color);
+        background-color: color-mix(
+                in srgb,
+                var(--p-primary-color) 15%,
+                transparent
+        );
+    }
 }
 
 @media (min-width: 1024px) {
-  #app {
-    width: 100%;
-    max-width: 1280px;
-    min-height: 100dvh;
-    margin: 0 auto;
-    padding: 2rem;
-    font-weight: normal;
-    display: flex;
-    flex-direction: column;
-  }
+    #app {
+        width: 100%;
+        max-width: 1280px;
+        min-height: 100dvh;
+        margin: 0 auto;
+        padding: 2rem;
+        font-weight: normal;
+        display: flex;
+        flex-direction: column;
+    }
 
-  body {
-    min-height: 100vh;
-  }
+    body {
+        min-height: 100vh;
+    }
 
 }
 

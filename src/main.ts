@@ -28,7 +28,6 @@ app.use(PrimeVue, {
 
         options: {
             darkModeSelector: false, //'system',
-            primaryColor: '#06b6d4',
         },
     },
 })

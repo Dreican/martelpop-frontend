@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 </script>
 
 <template>
@@ -8,7 +8,7 @@
     </aside>
 
     <main class="admin-content">
-      <RouterView />
+      <RouterView/>
     </main>
   </div>
 </template>

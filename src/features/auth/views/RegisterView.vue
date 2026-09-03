@@ -123,47 +123,47 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
 
         <div class="register-header">
           <h1>{{ t('auth.registration.header') }}</h1>
-<!--          <p>Join MartelPop</p>-->
+          <!--          <p>Join MartelPop</p>-->
         </div>
         <Message v-if="error" severity="error">{{ error }}</Message>
 
         <Form :resolver="resolver" class="register-form" @submit="onSubmit">
           <FormInput
-              autocomplete="email"
               :label="t('auth.email')"
+              autocomplete="email"
               name="email"
               type="email"
           />
 
           <div class="name-fields">
             <FormInput
-                autocomplete="given-name"
                 :label="t('auth.firstname')"
+                autocomplete="given-name"
                 name="firstname"
             />
 
             <FormInput
-                autocomplete="family-name"
                 :label="t('auth.lastname')"
+                autocomplete="family-name"
                 name="lastname"
             />
           </div>
           <FormInput
-              autocomplete="nickname"
               :label="t('auth.displayName')"
+              autocomplete="nickname"
               name="display_name"
           />
 
           <FormPassword
               :feedback="true"
-              autocomplete="new-password"
               :label="t('auth.password')"
+              autocomplete="new-password"
               name="password"
           />
 
           <FormPassword
-              autocomplete="new-password"
               :label="t('auth.confirmPassword')"
+              autocomplete="new-password"
               name="password_confirmation"
           />
 
@@ -175,10 +175,10 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
           >
             {{ error }}
           </Message>
-          <br />
+          <br/>
           <Button
-              fluid
               :label="t('auth.registration.registerButton')"
+              fluid
               type="submit"
           />
         </Form>

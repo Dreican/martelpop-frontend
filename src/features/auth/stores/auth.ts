@@ -11,7 +11,7 @@ import {
 
 import type {LoginRequest, RegisterRequest} from "@/features/auth/types/auth.ts"
 
-import {getAccessToken, setAccessToken} from "@/services/auth/token.ts"
+import {setAccessToken} from "@/services/auth/token.ts"
 
 
 export const useAuthStore = defineStore("auth", () => {
@@ -26,7 +26,7 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     async function initialize(): Promise<void> {
-        if  (initialized.value) {
+        if (initialized.value) {
             return
         }
 

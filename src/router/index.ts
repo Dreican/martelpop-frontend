@@ -70,12 +70,12 @@ router.beforeEach((to) => {
     if (to.meta.authRequired && !auth.isAuthenticated) {
         return {
             name: 'login',
-            query: { redirect: to.fullPath }
+            query: {redirect: to.fullPath}
         }
     }
 
     if (to.meta.guestOnly && auth.isAuthenticated) {
-        return { name: 'home' }
+        return {name: 'home'}
     }
 
 })

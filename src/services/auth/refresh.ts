@@ -18,7 +18,6 @@ export async function refreshAccessToken(): Promise<boolean> {
 }
 
 
-
 async function performRefresh(): Promise<boolean> {
     try {
         const response = await refresh()

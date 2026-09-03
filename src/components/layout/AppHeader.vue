@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {Menubar} from "primevue";
 import Button from 'primevue/button'
 import {useI18n} from 'vue-i18n'
@@ -10,7 +10,7 @@ import {useRouter} from "vue-router";
 
 const auth = useAuthStore()
 const router = useRouter()
-const { locale, t } = useI18n()
+const {locale, t} = useI18n()
 
 async function handleLogout(): Promise<void> {
   try {
@@ -19,21 +19,21 @@ async function handleLogout(): Promise<void> {
     // The store clears the local authentication state even when the API call fails.
     console.error('Logout request failed', error)
   } finally {
-    await router.push({ name: 'login' })
+    await router.push({name: 'login'})
   }
 }
 
 const languages = [
-  { label: 'Français', value: 'fr' },
-  { label: 'English', value: 'en' },
+  {label: 'Français', value: 'fr'},
+  {label: 'English', value: 'en'},
 ]
 
 const menuItems = computed(() => {
   const items = [
-      {
-        label: t('navigation.events'),
-        route: '/events',
-      },
+    {
+      label: t('navigation.events'),
+      route: '/events',
+    },
   ]
 
   if (auth.isAuthenticated) {
@@ -54,8 +54,8 @@ const selectedLanguage = locale
     <Menubar :model="menuItems">
       <template #start>
         <RouterLink
-            to="/"
             class="app-logo"
+            to="/"
         >
           Home
         </RouterLink>
@@ -98,10 +98,10 @@ const selectedLanguage = locale
 
           <Button
               v-if="auth.isAuthenticated"
-              type="button"
               :label="t('navigation.logout')"
               severity="secondary"
               text
+              type="button"
               @click="handleLogout"
           />
 

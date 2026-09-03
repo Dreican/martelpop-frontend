@@ -2,7 +2,7 @@ import Aura from "@primeuix/themes/aura";
 import {definePreset} from "@primeuix/themes";
 
 
-export const MartelPopPreset  = definePreset(Aura, {
+export const MartelPopPreset = definePreset(Aura, {
     semantic: {
         primary: {
             50: '{cyan.50}',
@@ -59,7 +59,7 @@ export const MartelPopPreset  = definePreset(Aura, {
                 shadow: 'var(--p-overlay-modal-shadow)'
             },
             body: {
-               padding: '2.5rem',
+                padding: '2.5rem',
             },
             subtitle: {
                 color: 'light-dark({surface.500}, {surface.400})'

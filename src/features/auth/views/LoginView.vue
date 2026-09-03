@@ -23,7 +23,7 @@ const auth = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 
-const { t } = useI18n()
+const {t} = useI18n()
 const error = ref<string | null>(null)
 
 const schema = computed(() =>
@@ -41,7 +41,7 @@ const schema = computed(() =>
           value => value ?? '',
           z
               .string()
-              .min(1,  t('auth.errors.passwordRequiredError'))
+              .min(1, t('auth.errors.passwordRequiredError'))
               .min(12, t('auth.errors.passwordMinLengthError'))
       ),
     })
@@ -90,25 +90,25 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
             @submit="onSubmit"
         >
           <FormInput
-              autocomplete="email"
               :label="t('auth.email')"
+              autocomplete="email"
               name="email"
-              type="email"
               size="large"
+              type="email"
           >
             <template #icon>
-              <At />
+              <At/>
             </template>
           </FormInput>
 
           <FormPassword
-              autocomplete="current-password"
               :label="t('auth.password')"
+              autocomplete="current-password"
               name="password"
               size="large"
           >
             <template #icon>
-              <Key />
+              <Key/>
             </template>
           </FormPassword>
 
@@ -122,8 +122,8 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
           </Message>
 
           <Button
-              fluid
               :label="t('auth.login.loginButton')"
+              fluid
               type="submit"
           />
         </Form>

@@ -26,50 +26,50 @@ withDefaults(defineProps<Props>(), {
       v-slot="$field"
       :name="name"
   >
-      <FloatLabel variant="on">
-        <IconField v-if="$slots.icon" icon-position="left">
-          <InputIcon>
-            <slot name="icon" />
-          </InputIcon>
-
-          <label :for="id ?? name">
-            {{ label }}
-          </label>
-          <InputText
-              :id="id ?? name"
-              :autocomplete="autocomplete"
-              :invalid="$field.invalid"
-              :name="name"
-              :type="type"
-              :size="size"
-              fluid
-          />
-          </IconField>
-
-        <InputText
-            v-else
-            :id="id ?? name"
-            :autocomplete="autocomplete"
-            :invalid="$field.invalid"
-            :name="name"
-            :type="type"
-            :size="size"
-            fluid
-        />
+    <FloatLabel variant="on">
+      <IconField v-if="$slots.icon" icon-position="left">
+        <InputIcon>
+          <slot name="icon"/>
+        </InputIcon>
 
         <label :for="id ?? name">
           {{ label }}
         </label>
+        <InputText
+            :id="id ?? name"
+            :autocomplete="autocomplete"
+            :invalid="$field.invalid"
+            :name="name"
+            :size="size"
+            :type="type"
+            fluid
+        />
+      </IconField>
 
-      </FloatLabel>
-      <Message
-          v-if="$field.invalid"
-          severity="error"
-          size="small"
-          variant="simple"
-      >
-        {{ $field.error?.message }}
-      </Message>
+      <InputText
+          v-else
+          :id="id ?? name"
+          :autocomplete="autocomplete"
+          :invalid="$field.invalid"
+          :name="name"
+          :size="size"
+          :type="type"
+          fluid
+      />
+
+      <label :for="id ?? name">
+        {{ label }}
+      </label>
+
+    </FloatLabel>
+    <Message
+        v-if="$field.invalid"
+        severity="error"
+        size="small"
+        variant="simple"
+    >
+      {{ $field.error?.message }}
+    </Message>
   </FormField>
 </template>
 <style scoped>

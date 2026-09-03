@@ -1,17 +1,17 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 </script>
 
 <template>
   <div class="app-layout">
-    <AppHeader />
+    <AppHeader/>
 
     <main class="app-content">
-      <RouterView />
+      <RouterView/>
     </main>
 
-    <AppFooter />
+    <AppFooter/>
   </div>
 </template>
 
