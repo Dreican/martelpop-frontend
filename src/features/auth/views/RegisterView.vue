@@ -117,11 +117,11 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
     await auth.register({
       email: event.values.email as string,
       password: event.values.password as string,
-      firstName: event.values.firstname as string,
-      lastName: event.values.lastname as string,
+      firstname: event.values.firstname as string,
+      lastname: event.values.lastname as string,
       display_name: event.values.display_name as string,
       municipality: event.values.municipality as string,
-      date_of_birth: event.values.date_of_birth as Date
+      date_of_birth: formatDateOnly(event.values.date_of_birth),
     })
 
     const redirect =
@@ -144,6 +144,9 @@ maximumBirthDate.setFullYear(
     maximumBirthDate.getFullYear() - 16
 )
 
+function formatDateOnly(date: Date): string {
+  return date.toISOString().slice(0, 10)
+}
 </script>
 
 <template>
@@ -157,8 +160,8 @@ maximumBirthDate.setFullYear(
           <h1>{{ t('auth.registration.header') }}</h1>
           <!--          <p>Join MartelPop</p>-->
         </div>
-        <Message v-if="error" severity="error">{{ error }}</Message>
-
+        <Message v-if="error" severity="error" size="large">{{ error }}</Message>
+        <br />
         <Form :resolver="resolver" class="register-form" @submit="onSubmit">
           <FormInput
               :label="t('auth.email')"
@@ -233,14 +236,6 @@ maximumBirthDate.setFullYear(
               name="password_confirmation"
           />
 
-          <Message
-              v-if="error"
-              severity="error"
-              size="large"
-              variant="simple"
-          >
-            {{ error }}
-          </Message>
           <br/>
           <Button
               :label="t('auth.registration.registerButton')"

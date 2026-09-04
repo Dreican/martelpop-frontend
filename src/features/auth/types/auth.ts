@@ -6,11 +6,11 @@ export interface LoginRequest {
 export interface RegisterRequest {
     email: string
     password: string
-    firstName: string
-    lastName: string
+    firstname: string
+    lastname: string
     display_name: string
     municipality: string
-    date_of_birth: Date
+    date_of_birth: string
 }
 
 export interface TokenResponse {
