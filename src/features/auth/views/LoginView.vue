@@ -67,9 +67,9 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
     await router.push(redirect)
   } catch (err) {
     if (err instanceof ApiError && err.status === 401) {
-      error.value = t('auth.erros.invalidEmailOrPasswordError')
+      error.value = t('auth.errors.invalidEmailOrPasswordError')
     } else {
-      error.value = t('auth.erros.loginError')
+      error.value = t('auth.errors.loginError')
     }
   }
 }

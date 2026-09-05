@@ -7,6 +7,7 @@ import {setLocale} from "@/i18n";
 import {computed} from "vue";
 import {useAuthStore} from "@/features/auth/stores/auth";
 import {useRouter} from "vue-router";
+import Avatar from 'primevue/avatar';
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -47,6 +48,9 @@ const menuItems = computed(() => {
 })
 
 const selectedLanguage = locale
+
+
+
 </script>
 
 <template>
