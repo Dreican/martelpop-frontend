@@ -35,11 +35,10 @@ export const useAuthStore = defineStore("auth", () => {
 
         try {
             const response = await refreshRequest()
-            setAccessToken(response.access_token)
+            updateAccessToken(response.access_token)
             user.value = await me()
         } catch {
-            setAccessToken(null)
-            user.value = null
+            clearAuthentication()
         } finally {
             initialized.value = true
             console.log("Auth store initialized")
@@ -102,6 +101,7 @@ export const useAuthStore = defineStore("auth", () => {
 
     function clearAuthentication(): void {
         updateAccessToken(null)
+        user.value = null
     }
 
     return {

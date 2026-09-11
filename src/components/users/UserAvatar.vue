@@ -11,7 +11,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   avatarUrl: null,
-  size: `normal`,
+  size: `large`,
   shape: `circle`,
 })
 
