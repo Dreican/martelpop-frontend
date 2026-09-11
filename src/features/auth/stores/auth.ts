@@ -12,6 +12,8 @@ import {
 import type {LoginRequest, RegisterRequest} from "@/features/auth/types/auth.ts"
 
 import {setAccessToken} from "@/services/auth/token.ts"
+import type {UserResponse} from "@/features/users/types/users.ts";
+import {me} from "@/features/users/api/usersApi.ts";
 
 
 export const useAuthStore = defineStore("auth", () => {
@@ -19,6 +21,7 @@ export const useAuthStore = defineStore("auth", () => {
     const initialized = ref(false)
     const accessToken = ref<string | null>(null)
     const isAuthenticated = computed(() => accessToken.value !== null)
+    const user = ref<UserResponse | null>(null)
 
     function updateAccessToken(token: string | null): void {
         accessToken.value = token
@@ -33,8 +36,10 @@ export const useAuthStore = defineStore("auth", () => {
         try {
             const response = await refreshRequest()
             setAccessToken(response.access_token)
+            user.value = await me()
         } catch {
             setAccessToken(null)
+            user.value = null
         } finally {
             initialized.value = true
             console.log("Auth store initialized")
@@ -49,6 +54,7 @@ export const useAuthStore = defineStore("auth", () => {
         try {
             const response = await loginRequest(request)
             updateAccessToken(response.access_token)
+            user.value = await me()
         } finally {
             loading.value = false;
         }
@@ -101,6 +107,7 @@ export const useAuthStore = defineStore("auth", () => {
     return {
         loading,
         isAuthenticated,
+        user,
 
         initialize,
         login,

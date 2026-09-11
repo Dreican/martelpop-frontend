@@ -5,13 +5,15 @@ import {useI18n} from 'vue-i18n'
 import Select from 'primevue/select'
 import {setLocale} from "@/i18n";
 import {computed} from "vue";
+import { storeToRefs } from 'pinia'
 import {useAuthStore} from "@/features/auth/stores/auth";
 import {useRouter} from "vue-router";
-import Avatar from 'primevue/avatar';
+import UserAvatar from "@/components/users/UserAvatar.vue";
 
 const auth = useAuthStore()
 const router = useRouter()
 const {locale, t} = useI18n()
+const { user } = storeToRefs(auth)
 
 async function handleLogout(): Promise<void> {
   try {
@@ -97,7 +99,11 @@ const selectedLanguage = locale
               v-else
               :to="{ name: 'profile' }"
           >
-            Profile
+            <UserAvatar
+                v-if="user"
+                :display-name="user.display_name"
+                :avatar-url="user.avatar_url"
+            />
           </RouterLink>
 
           <Button

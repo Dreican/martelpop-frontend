@@ -1,39 +1,47 @@
-import {apiFetch} from "@/services/api/client.ts";
+import {apiFetch, apiFetchBlob} from "@/services/api/client.ts";
 
-import type {RegisterRequest, TokenResponse,} from "@/features/auth/types/auth.ts";
-import type {UserResponse} from "@/features/users/types/users.ts";
+import type {UserResponse, UserSummaryResponse, UserUpdateRequest} from "@/features/users/types/users.ts";
 
-export function me(
-): Promise<UserResponse> {
+export function me(): Promise<UserResponse> {
     return apiFetch("/users/me", {
         method: "GET"
     });
 }
 
-export function register(
-    request: RegisterRequest
-): Promise<TokenResponse> {
-    return apiFetch("/auth/register", {
-        method: "POST",
+export function user(slug: string): Promise<UserSummaryResponse> {
+    return apiFetch(`/users/${slug}`, {
+        method: "GET"
+    });
+}
+
+export function update_me(request: UserUpdateRequest): Promise<UserResponse> {
+    return apiFetch("/users/me", {
+        method: "PATCH",
         body: JSON.stringify(request),
     });
 }
 
-export function refresh(): Promise<TokenResponse> {
-    return apiFetch<TokenResponse>("/auth/refresh", {
-        method: "POST",
-        skipRefresh: true,
+export function delete_me(): Promise<void> {
+    return apiFetch("/users/me", {
+        method: "DELETE",
     });
 }
 
-export function logout(): Promise<void> {
-    return apiFetch("/auth/logout", {
+export function upload_avatar(file: File): Promise<void> {
+    return apiFetch("/users/me/avatar", {
         method: "POST",
+        body: file,
     });
 }
 
-export function logoutAll(): Promise<void> {
-    return apiFetch("/auth/logout-all", {
-        method: "POST",
+export function delete_avatar(): Promise<void> {
+    return apiFetch("/users/me/avatar", {
+        method: "DELETE",
+    });
+}
+
+export function get_avatar(slug: string): Promise<Blob> {
+    return apiFetchBlob(`/users/${slug}/avatar`, {
+        method: "GET",
     });
 }

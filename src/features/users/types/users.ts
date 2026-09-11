@@ -16,9 +16,7 @@ export interface UserResponse extends UserSummaryResponse {
     roles: RoleSummaryResponse
     status: string
     created_at: Date
-
 }
-
 
 export interface UserAdminResponse extends UserResponse {
     deleted_at: Date | null
