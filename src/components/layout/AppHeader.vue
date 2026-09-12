@@ -36,6 +36,7 @@ const menuItems = computed(() => {
     {
       label: t('navigation.events'),
       route: '/events',
+      items: [{ label: t('navigation.martelpop'), route: '/events?type=martelpop' }]
     },
   ]
 
@@ -43,6 +44,7 @@ const menuItems = computed(() => {
     items.push({
       label: t('navigation.registrations'),
       route: '/registrations',
+      items: []
     })
   }
 
