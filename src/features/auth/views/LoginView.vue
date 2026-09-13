@@ -125,12 +125,12 @@ async function onSubmit(event: FormSubmitEvent): Promise<void> {
           <Button
               :label="t('auth.login.loginButton')"
               fluid
-              type="submit"
               size="large"
+              type="submit"
 
           >
             <SignIn/>
-            {{t('auth.login.loginButton')}}
+            {{ t('auth.login.loginButton') }}
           </Button>
         </Form>
 

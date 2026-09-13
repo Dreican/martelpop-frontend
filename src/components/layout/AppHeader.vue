@@ -5,7 +5,7 @@ import {useI18n} from 'vue-i18n'
 import Select from 'primevue/select'
 import {setLocale} from "@/i18n";
 import {computed} from "vue";
-import { storeToRefs } from 'pinia'
+import {storeToRefs} from 'pinia'
 import {useAuthStore} from "@/features/auth/stores/auth";
 import {useRouter} from "vue-router";
 import UserAvatar from "@/components/users/UserAvatar.vue";
@@ -13,7 +13,7 @@ import UserAvatar from "@/components/users/UserAvatar.vue";
 const auth = useAuthStore()
 const router = useRouter()
 const {locale, t} = useI18n()
-const { user } = storeToRefs(auth)
+const {user} = storeToRefs(auth)
 
 async function handleLogout(): Promise<void> {
   try {
@@ -36,7 +36,7 @@ const menuItems = computed(() => {
     {
       label: t('navigation.events'),
       route: '/events',
-      items: [{ label: t('navigation.martelpop'), route: '/events?type=martelpop' }]
+      items: [{label: t('navigation.martelpop'), route: '/events?type=martelpop'}]
     },
   ]
 
@@ -52,7 +52,6 @@ const menuItems = computed(() => {
 })
 
 const selectedLanguage = locale
-
 
 
 </script>
@@ -103,8 +102,8 @@ const selectedLanguage = locale
           >
             <UserAvatar
                 v-if="user"
-                :display-name="user.display_name"
                 :avatar-url="user.avatar_url"
+                :display-name="user.display_name"
             />
           </RouterLink>
 

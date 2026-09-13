@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import { computed } from 'vue'
+<script lang="ts" setup>
+import {computed} from 'vue'
 import Avatar from 'primevue/avatar'
 
 interface Props {
@@ -30,8 +30,8 @@ const initials = computed(() => {
   <Avatar
       :image="avatarUrl ?? undefined"
       :label="initials"
-      :size="size"
-      :shape="shape" />
+      :shape="shape"
+      :size="size"/>
 </template>
 
 <style scoped>

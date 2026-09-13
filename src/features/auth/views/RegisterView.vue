@@ -4,14 +4,13 @@ import {useRoute, useRouter} from 'vue-router'
 
 import {useAuthStore} from '@/features/auth/stores/auth'
 import {ApiError} from "@/services/api/errors.ts";
-import {Form, type FormSubmitEvent} from '@primevue/forms'
+import {Form, FormField, type FormSubmitEvent} from '@primevue/forms'
 import {zodResolver} from '@primevue/forms/resolvers/zod'
 import {z} from 'zod'
 
 import Card from 'primevue/card'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
-import { FormField } from '@primevue/forms'
 import FormInput from '@/components/forms/FormInput.vue'
 import FormPassword from '@/components/forms/FormPassword.vue'
 import FloatLabel from "primevue/floatlabel";
@@ -161,7 +160,7 @@ function formatDateOnly(date: Date): string {
           <!--          <p>Join MartelPop</p>-->
         </div>
         <Message v-if="error" severity="error" size="large">{{ error }}</Message>
-        <br />
+        <br/>
         <Form :resolver="resolver" class="register-form" @submit="onSubmit">
           <FormInput
               :label="t('auth.email')"
@@ -197,12 +196,12 @@ function formatDateOnly(date: Date): string {
               </label>
               <DatePicker
                   id="date_of_birth"
-                  inputId="date_of_birth"
                   v-model="$field.value"
                   :invalid="$field.invalid"
                   :max-date="maximumBirthDate"
                   date-format="dd/mm/yy"
                   fluid
+                  inputId="date_of_birth"
                   show-icon
               />
             </FloatLabel>
