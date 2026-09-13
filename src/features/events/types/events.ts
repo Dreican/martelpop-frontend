@@ -1,6 +1,7 @@
-import type {EventStatusResponse, EventStatusSummaryResponse} from "@/features/events/type/event_statues.ts";
-import type {ActivityTypeSummaryResponse} from "@/features/events/type/activity_types.ts";
+import type {EventStatusResponse, EventStatusSummaryResponse} from "@/features/events/types/event_statues.ts";
+import type {ActivityTypeSummaryResponse} from "@/features/events/types/activity_types.ts";
 import type {UserSummaryResponse} from "@/features/users/types/users.ts";
+import type {RegistrationStatus} from "@/features/registrations/types/registrations.ts";
 
 export enum EventAudience {
     PUBLIC = "PUBLIC",
@@ -17,9 +18,6 @@ export interface EventSummaryResponse {
     start_date: Date | null
     end_date: Date | null
 
-    location: string | null
-    banner_url: string | null
-
     activity_type: ActivityTypeSummaryResponse
     status: EventStatusSummaryResponse
 }
@@ -27,12 +25,12 @@ export interface EventSummaryResponse {
 
 export interface EventResponse extends EventSummaryResponse {
     description: string | null
+    location: string | null
+    banner_url: string | null
 
     capacity: number | null
-    banner_url: string | null
-    activity_type: ActivityTypeSummaryResponse
+    price: number | null
     creator: UserSummaryResponse
-    status: EventStatusSummaryResponse
 
     is_full: boolean
 }
@@ -51,3 +49,14 @@ export interface EventAdminResponse extends EventResponse {
     deleted_by: UserSummaryResponse | null
 }
 
+export interface ParticipantResponse {
+    id: string
+
+    user: UserSummaryResponse
+    status: RegistrationStatus
+
+    note: string
+
+    registered_at: Date
+
+}
