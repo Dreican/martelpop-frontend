@@ -1,5 +1,5 @@
-import type {EventStatusSummaryResponse} from "@/features/users/types/event_statues.ts";
-import type {ActivityTypeSummaryResponse} from "@/features/users/types/activity_types.ts";
+import type {EventStatusSummaryResponse} from "@/features/events/type/event_statues.ts";
+import type {ActivityTypeSummaryResponse} from "@/features/events/type/activity_types.ts";
 
 export interface EventSummaryResponse {
     id: string
